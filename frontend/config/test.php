@@ -1,4 +1,6 @@
 <?php
+use yii\helpers\ReplaceArrayValue;
+
 return [
     'id' => 'app-frontend-tests',
     'components' => [
@@ -10,6 +12,9 @@ return [
         ],
         'request' => [
             'cookieValidationKey' => 'test',
+        ],
+        'session' => [
+            'cookieParams' => new ReplaceArrayValue(['httpOnly' => true]),
         ],
     ],
 ];
