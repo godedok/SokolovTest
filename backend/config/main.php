@@ -12,7 +12,6 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => [
         'log',
-        'common\bootstrap\SetUp',
     ],
     'modules' => [],
     'components' => [
