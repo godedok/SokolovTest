@@ -15,6 +15,9 @@ return [
     ],
     'modules' => [],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
             'cookieValidationKey' => $params['cookieValidationKey'],
@@ -65,7 +68,7 @@ return [
         'rules' => [
             [
             'allow' => true,
-            'roles' => ['@'],
+            'roles' => ['makeCRUD'],
             ],
         ],
     ],
