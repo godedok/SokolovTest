@@ -16,6 +16,19 @@ use Yii;
 class IngredientsDishes extends \yii\db\ActiveRecord
 {
     /**
+     * Add ingredients and dish ID in object
+     */
+    private $ingredientsId = [];
+    private $dishId = null;
+    public function setIngredientsId(int $id)
+    {
+        $this->ingredientsId[] = $id;
+    }
+    public function setDishId(int $id)
+    {
+        $this->dishId = $id;
+    }
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -66,8 +79,10 @@ class IngredientsDishes extends \yii\db\ActiveRecord
     /**
      * 
      */
-    public function insertRecords($dishId, array $ingredientsId)
+    public function insertRecords()
     {
+        $dishId = $this->dishId;
+        $ingredientsId = $this->ingredientsId;
         array_map(function ($ingredientId) use ($dishId) {
             Yii::$app->db
                 ->createCommand('INSERT INTO ' . self::tableName() . ' VALUES (:ingredientId, :dishId)')

@@ -30,6 +30,7 @@ class Dishes extends \yii\db\ActiveRecord
     {
         return [
             [['dish_name'], 'required'],
+            [['dish_name'], 'unique'],
             [['dish_name'], 'string', 'max' => 255],
         ];
     }

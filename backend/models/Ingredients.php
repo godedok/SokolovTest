@@ -30,6 +30,7 @@ class Ingredients extends \yii\db\ActiveRecord
     {
         return [
             [['ingredient_name'], 'required'],
+            [['ingredient_name'], 'unique'],
             [['ingredient_name'], 'string', 'max' => 255],
         ];
     }
