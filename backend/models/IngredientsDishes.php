@@ -20,11 +20,11 @@ class IngredientsDishes extends \yii\db\ActiveRecord
      */
     private $ingredientsId = [];
     private $dishId = null;
-    public function setIngredientsId(int $id)
+    public function setIngredientsId(int $id): void
     {
         $this->ingredientsId[] = $id;
     }
-    public function setDishId(int $id)
+    public function setDishId(int $id): void
     {
         $this->dishId = $id;
     }
@@ -77,19 +77,19 @@ class IngredientsDishes extends \yii\db\ActiveRecord
         return $this->hasOne(Ingredients::className(), ['id' => 'ingredients_id']);
     }
     /**
-     * 
+     * Insert records into table
      */
     public function insertRecords()
     {
         $dishId = $this->dishId;
         $ingredientsId = $this->ingredientsId;
-        array_map(function ($ingredientId) use ($dishId) {
-            Yii::$app->db
-                ->createCommand('INSERT INTO ' . self::tableName() . ' VALUES (:ingredientId, :dishId)')
-                ->bindValue(':ingredientId', $ingredientId)
-                ->bindValue(':dishId', $dishId)
-                ->execute();
-        }, $ingredientsId);
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(self::tableName(), ['ingredients_id', 'dishes_id'],
+                array_map(function ($ingredientId) use ($dishId) {
+                    return [$ingredientId, $dishId];
+                }, $ingredientsId))
+            ->execute();
         return true;
     }
 }

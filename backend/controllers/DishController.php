@@ -67,13 +67,6 @@ class DishController extends Controller
     public function actionCreate()
     {
         $model = new Dishes();
-        //$ingredients = Ingredients::find()->all();
-
-        $linkTable = new IngredientsDishes;
-        $linkTable->setDishId(2);
-        $linkTable->setIngredientsId(1);
-        $linkTable->insertRecords();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
