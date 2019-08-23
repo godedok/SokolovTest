@@ -60,7 +60,7 @@ ln -s /app/vagrant/nginx/app.conf /etc/nginx/sites-enabled/app.conf
 echo "Done!"
 
 info "Initailize databases for MySQL"
-mysql -uroot <<< "CREATE DATABASE sokolov"
+mysql -uroot <<< "CREATE DATABASE sokolov CHARACTER SET utf8 COLLATE utf8_general_ci"
 mysql -uroot <<< "CREATE DATABASE sokolov_test"
 echo "Done!"
 

@@ -1,0 +1,9 @@
+Миграци, создаемтаблицы
+
+./yii migrate/create create_dishes_table --fields="dish_name:string:notNull:unique"
+./yii migrate/create create_ingredients_table --fields="ingredient_name:string:notNull:unique"
+./yii migrate/create create_junction_table_for_ingredients_and_dishes_tables
+./yii migrate
+
+----------------------------------------------------------
+

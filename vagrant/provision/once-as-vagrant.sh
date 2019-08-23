@@ -22,6 +22,9 @@ info "Init project"
 ./init --env=Development --overwrite=y
 
 info "Apply migrations"
+./yii migrate/create create_dishes_table --fields="dish_name:string:notNull:unique"
+./yii migrate/create create_ingredients_table --fields="ingredient_name:string:notNull:unique"
+./yii migrate/create create_junction_table_for_ingredients_and_dishes_tables
 ./yii migrate --interactive=0
 ./yii_test migrate --interactive=0
 
