@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use app\models\Ingredients;
+use app\models\search\IngredientSearch;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -35,11 +36,14 @@ class IngredientController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Ingredients::find(),
-        ]);
+        $searchModel = new IngredientSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // $dataProvider = new ActiveDataProvider([
+        //     'query' => Ingredients::find(),
+        // ]);
 
         return $this->render('index', [
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

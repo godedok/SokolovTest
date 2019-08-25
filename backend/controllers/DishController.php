@@ -4,8 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use app\models\Dishes;
-use app\models\Ingredients;
-use app\models\IngredientsDishes;
+use app\models\search\IngredientSearch;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -39,6 +38,9 @@ class DishController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Dishes::find(),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
         ]);
 
         return $this->render('index', [
@@ -85,11 +87,9 @@ class DishController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);

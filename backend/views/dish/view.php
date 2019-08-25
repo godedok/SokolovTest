@@ -32,6 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'dish_name',
+            [
+                'label' => 'Ингредиенты',
+                'value' => implode(', ', array_map(function($ingInObject) {
+                    return $ingInObject->ingredient_name;
+                }, $model->ingredients)),
+            ],
         ],
     ]) ?>
 

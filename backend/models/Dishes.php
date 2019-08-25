@@ -15,6 +15,7 @@ use Yii;
  */
 class Dishes extends \yii\db\ActiveRecord
 {
+    public $ingredients_array;
     /**
      * {@inheritdoc}
      */
@@ -32,6 +33,7 @@ class Dishes extends \yii\db\ActiveRecord
             [['dish_name'], 'required'],
             [['dish_name'], 'unique'],
             [['dish_name'], 'string', 'max' => 255],
+            [['ingredients_array'], 'safe'],
         ];
     }
 
@@ -42,7 +44,8 @@ class Dishes extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'dish_name' => 'Dish Name',
+            'dish_name' => 'Название блюда',
+            'ingredients_array' => 'Ингредиенты',
         ];
     }
 
@@ -59,6 +62,31 @@ class Dishes extends \yii\db\ActiveRecord
      */
     public function getIngredients()
     {
-        return $this->hasMany(Ingredients::className(), ['id' => 'ingredients_id'])->viaTable('ingredients_dishes', ['dishes_id' => 'id']);
+        return $this->hasMany(Ingredients::className(), ['id' => 'ingredients_id'])->via('ingredientsDishes');
+    }
+
+    public function afterFind()
+    {
+        $this->ingredients_array = $this->ingredients;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $arr = \yii\helpers\ArrayHelper::map($this->ingredients, 'id', 'id');
+        $model = new IngredientsDishes();
+        $model->dishId = $this->id;
+        foreach ($this->ingredients_array as $value) {
+            if(!in_array($value, $arr)) {
+                $model->ingredientsId = $value;
+            }
+            if (isset($arr[$value])) {
+                unset($arr[$value]);
+            }
+        }
+        $model->insertRecords();
+        IngredientsDishes::deleteAll(['ingredients_id' => $arr, 'dishes_id' => $this->id]);
     }
 }
