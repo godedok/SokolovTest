@@ -78,12 +78,14 @@ class Dishes extends \yii\db\ActiveRecord
         $arr = \yii\helpers\ArrayHelper::map($this->ingredients, 'id', 'id');
         $model = new IngredientsDishes();
         $model->dishId = $this->id;
-        foreach ($this->ingredients_array as $value) {
-            if(!in_array($value, $arr)) {
-                $model->ingredientsId = $value;
-            }
-            if (isset($arr[$value])) {
-                unset($arr[$value]);
+        if (!empty($this->ingredients_array)) {
+            foreach ($this->ingredients_array as $value) {
+                if(!in_array($value, $arr)) {
+                    $model->ingredientsId = $value;
+                }
+                if (isset($arr[$value])) {
+                    unset($arr[$value]);
+                }
             }
         }
         $model->insertRecords();
