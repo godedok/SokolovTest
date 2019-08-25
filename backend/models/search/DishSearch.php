@@ -2,16 +2,16 @@
  
 namespace app\models\search;
  
-use app\models\Ingredients;
+use app\models\Dishes;
 use yii\data\ActiveDataProvider;
  
-class IngredientSearch extends Ingredients
+class DishSearch extends Dishes
 {
     public function rules()
     {
         return [
             [['id'], 'integer'],
-            [['ingredient_name'], 'string', 'max' => 255],
+            [['dish_name'], 'string', 'max' => 255],
         ];
     }
     public function search($params)
@@ -32,7 +32,7 @@ class IngredientSearch extends Ingredients
         }
 
         $query->filterWhere(['id' => $this->id]);
-        $query->andFilterWhere(['LIKE', 'ingredient_name', $this->ingredient_name]);
+        $query->andFilterWhere(['LIKE', 'dish_name', $this->dish_name]);
  
         return $dataProvider;
     }

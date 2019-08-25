@@ -1,3 +1,6 @@
+<?php
+use yii;
+?>
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -18,12 +21,13 @@
             [
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
-                    ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
+                    ['label' => 'Menu', 'options' => ['class' => 'header']],
                     ['label' => 'Блюда', 'icon' => 'edit', 'url' => ['/dish']],
                     ['label' => 'Ингредиенты', 'icon' => 'edit', 'url' => ['/ingredient']],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => 'User', 'icon' => 'edit', 'url' => Yii::$app->frontendUrlManager->hostInfo],
                 ],
             ]
         ) ?>

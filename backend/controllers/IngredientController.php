@@ -5,7 +5,6 @@ namespace backend\controllers;
 use Yii;
 use app\models\Ingredients;
 use app\models\search\IngredientSearch;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,9 +37,6 @@ class IngredientController extends Controller
     {
         $searchModel = new IngredientSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        // $dataProvider = new ActiveDataProvider([
-        //     'query' => Ingredients::find(),
-        // ]);
 
         return $this->render('index', [
             'searchModel'  => $searchModel,
