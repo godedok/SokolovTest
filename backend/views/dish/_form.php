@@ -3,8 +3,6 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use yii\grid\GridView;
-use app\models\Ingredients;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Dishes */
@@ -28,7 +26,7 @@ use app\models\Ingredients;
             'maximumInputLength' => 15
         ],
     ]);
-?>
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

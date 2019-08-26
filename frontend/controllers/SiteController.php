@@ -14,6 +14,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\FindDishes;
 
 /**
  * Site controller
@@ -66,16 +67,29 @@ class SiteController extends Controller
             ],
         ];
     }
+    public function actionIndex()
+    {
+        $model = new FindDishes();
+        if ($model->load(Yii::$app->request->post())) {
+            return $this->render('find_view', [
+                'model' => $model,
+                'dishes' => $model->resultDishes,
+            ]);
+        }
 
+        return $this->render('find', [
+            'model' => $model,
+        ]);
+    }
     /**
      * Displays homepage.
      *
      * @return mixed
      */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
+    // public function actionIndex()
+    // {
+    //     return $this->render('index');
+    // }
 
     /**
      * Logs in a user.

@@ -27,7 +27,7 @@ use yii;
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
-                    ['label' => 'User', 'icon' => 'edit', 'url' => Yii::$app->frontendUrlManager->hostInfo],
+                    ['label' => 'User part', 'icon' => 'edit', 'url' => Yii::$app->frontendUrlManager->hostInfo],
                 ],
             ]
         ) ?>
